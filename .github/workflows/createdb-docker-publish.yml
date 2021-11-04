@@ -17,7 +17,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: get-unicode-eastasianwidth-createdb
+  IMAGE_NAME: mkaraki/get-unicode-eastasianwidth-createdb
 
 
 jobs:
