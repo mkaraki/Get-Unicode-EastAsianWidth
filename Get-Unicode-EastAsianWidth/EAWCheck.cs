@@ -4,55 +4,25 @@
     {
         private static InternalDB idb;
 
-        public static bool IsFullWidth(char Character, bool EAW_A_To_Full = false)
+        private static CharSize GetCharSize(char target, bool EAW_A_To_Full = false)
         {
             if (!idb.DBReady) idb.InitDB();
-            int charid = Character;
-
-            CharSize defchar = CharSize.HalfWidth;
-            if (EAW_A_To_Full)
-                defchar = CharSize.FullWidth;
-            CharSize csize = CharSize.Unknown;
 
             foreach (DB.RangeInfo rif in idb.RDBs)
             {
-                if (charid >= rif.Start_index && charid <= rif.End_index)
+                if (target >= rif.Start_index && target <= rif.End_index)
                 {
-                    csize = DB.GetSize(rif.Type, defchar);
-                    break;
+                    return DB.GetSize(rif.Type, EAW_A_To_Full ? CharSize.FullWidth : CharSize.HalfWidth);
                 }
             }
-
-            if (csize == CharSize.FullWidth)
-                return true;
-            else
-                return false;
+            return CharSize.Unknown;
         }
+
+        public static bool IsFullWidth(char Character, bool EAW_A_To_Full = false)
+            => GetCharSize(Character, EAW_A_To_Full) == CharSize.FullWidth;
 
         public static bool IsHalfWidth(char Character, bool EAW_A_To_Full = false)
-        {
-            if (!idb.DBReady) idb.InitDB();
-            int charid = Character;
-
-            CharSize defchar = CharSize.HalfWidth;
-            if (EAW_A_To_Full)
-                defchar = CharSize.FullWidth;
-            CharSize csize = CharSize.Unknown;
-
-            foreach (DB.RangeInfo rif in idb.RDBs)
-            {
-                if (charid >= rif.Start_index && charid <= rif.End_index)
-                {
-                    csize = DB.GetSize(rif.Type, defchar);
-                    break;
-                }
-            }
-
-            if (csize == CharSize.HalfWidth)
-                return true;
-            else
-                return false;
-        }
+            => !IsFullWidth(Character, EAW_A_To_Full);
 
         /// <summary>
         /// Alias of GetStrLenWithEAW
@@ -61,26 +31,10 @@
 
         public static int GetStrLenWithEAW(string Text, bool EAW_A_To_Full = false)
         {
-            if (!idb.DBReady) idb.InitDB();
-
             int toret = 0;
 
-            CharSize defchar = CharSize.HalfWidth;
-            if (EAW_A_To_Full)
-                defchar = CharSize.FullWidth;
-
             foreach (char t_char in Text)
-                foreach (DB.RangeInfo rif in idb.RDBs)
-                {
-                    if (t_char >= rif.Start_index && t_char <= rif.End_index)
-                    {
-                        if (DB.GetSize(rif.Type, defchar) == CharSize.FullWidth)
-                            toret += 2;
-                        else
-                            toret += 1;
-                        break;
-                    }
-                }
+                toret += IsFullWidth(t_char, EAW_A_To_Full) ? 2 : 1;
 
             return toret;
         }
