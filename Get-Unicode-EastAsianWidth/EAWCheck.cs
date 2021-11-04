@@ -2,7 +2,7 @@
 {
     public static class EAWCheck
     {
-        private static InternalDB idb;
+        private static InternalDB idb = new InternalDB();
 
         public static void PreloadDB()
             => idb.InitDB();
