@@ -4,6 +4,12 @@
     {
         private static InternalDB idb;
 
+        public static void PreloadDB()
+            => idb.InitDB();
+
+        public static void SetDBString(string dbstr)
+            => idb.InitDB(dbstr);
+
         private static CharSize GetCharSize(char target, bool EAW_A_To_Full = false)
         {
             if (!idb.DBReady) idb.InitDB();
