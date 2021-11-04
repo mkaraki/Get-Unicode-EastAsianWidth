@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Get_Unicode_EastAsianWidth</RootNamespace>
+    <RepositoryUrl>https://github.com/mkaraki/Get-Unicode-EastAsianWidth</RepositoryUrl>
+    <PackageId>Get-Unicode-EastAsianWidth</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>mkaraki</Authors>
+    <Company>mkaraki</Company>
   </PropertyGroup>
 
 </Project>
