@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
-COPY ../* /app/
+COPY ./* /app/
 
 WORKDIR /app/CreateDB
 
