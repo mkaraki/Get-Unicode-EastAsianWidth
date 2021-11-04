@@ -64,16 +64,13 @@ namespace CreateDB
             {
                 EAW_File_Meat.Remove("");
             }
-            todel = null;
-            GC.Collect();
 
             Console.WriteLine("Parsing");
-            CreateDB.Parse(EAW_File_Meat);
+            string dbstr = CreateDB.Parse(EAW_File_Meat);
 
             Console.WriteLine("Saving");
-            string TextMeat = CreateDB.CreateTextFile();
 
-            System.IO.File.WriteAllText(EAW_DBFile_Path, TextMeat, System.Text.Encoding.UTF8);
+            System.IO.File.WriteAllText(EAW_DBFile_Path, dbstr, System.Text.Encoding.ASCII);
 
             Console.WriteLine();
             Console.WriteLine("Success");
