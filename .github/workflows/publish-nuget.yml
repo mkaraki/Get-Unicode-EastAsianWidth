@@ -17,5 +17,5 @@ jobs:
       - run: dotnet pack Get-Unicode-EastAsianWidth/Get-Unicode-EastAsianWidth.csproj -c Release -o ./
       - run: dotnet nuget push Get-Unicode-EastAsianWidth.*.nupkg -k $NUGET_KEY -s $NUGET_SOURCE
         env:
-          NUGET_KEY: ${{secrets.NUGET_SECRET}} 
+          NUGET_KEY: ${{secrets.NUGET_KEY}} 
           NUGET_SOURCE: https://api.nuget.org/v3/index.json
