@@ -15,8 +15,10 @@ namespace CreateDB
         
         static async Task Main(string[] args)
         {
-
             string EAW_File_Path = null;
+
+            if (System.IO.File.Exists("ucd-eastasianwidth.txt"))
+                EAW_File_Path = "ucd-eastasianwidth.txt";
 
             string EAW_DBFile_Path = "eawdb.txt";
 
