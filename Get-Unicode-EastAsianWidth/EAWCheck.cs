@@ -1,12 +1,12 @@
 ﻿namespace Get_Unicode_EastAsianWidth
 {
-    public class EAWCheck
+    public static class EAWCheck
     {
-        public static bool IsInited = false;
+        private static InternalDB idb;
 
         public static bool IsFullWidth(char Character, bool EAW_A_To_Full = false)
         {
-            if (!IsInited) { InternalDB.InitDB(); IsInited = true; }
+            if (!idb.DBReady) idb.InitDB();
             int charid = Character;
 
             CharSize defchar = CharSize.HalfWidth;
@@ -14,7 +14,7 @@
                 defchar = CharSize.FullWidth;
             CharSize csize = CharSize.Unknown;
 
-            foreach (DB.RangeInfo rif in InternalDB.RDBs)
+            foreach (DB.RangeInfo rif in idb.RDBs)
             {
                 if (charid >= rif.Start_index && charid <= rif.End_index)
                 {
@@ -31,7 +31,7 @@
 
         public static bool IsHalfWidth(char Character, bool EAW_A_To_Full = false)
         {
-            if (!IsInited) { InternalDB.InitDB(); IsInited = true; }
+            if (!idb.DBReady) idb.InitDB();
             int charid = Character;
 
             CharSize defchar = CharSize.HalfWidth;
@@ -39,7 +39,7 @@
                 defchar = CharSize.FullWidth;
             CharSize csize = CharSize.Unknown;
 
-            foreach (DB.RangeInfo rif in InternalDB.RDBs)
+            foreach (DB.RangeInfo rif in idb.RDBs)
             {
                 if (charid >= rif.Start_index && charid <= rif.End_index)
                 {
@@ -61,7 +61,7 @@
 
         public static int GetStrLenWithEAW(string Text, bool EAW_A_To_Full = false)
         {
-            if (!IsInited) { InternalDB.InitDB(); IsInited = true; }
+            if (!idb.DBReady) idb.InitDB();
 
             int toret = 0;
 
@@ -70,7 +70,7 @@
                 defchar = CharSize.FullWidth;
 
             foreach (char t_char in Text)
-                foreach (DB.RangeInfo rif in InternalDB.RDBs)
+                foreach (DB.RangeInfo rif in idb.RDBs)
                 {
                     if (t_char >= rif.Start_index && t_char <= rif.End_index)
                     {
