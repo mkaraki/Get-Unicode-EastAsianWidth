@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace CreateDB
 {
     class Program
     {
-        private static string EAW_File_Path = "";
+        private const string UCD_EAW_URL = "https://www.unicode.org/Public/UCD/latest/ucd/EastAsianWidth.txt";
 
-        private static string EAW_DBFile_Path = "";
-
-        private static List<string> EAW_File_Meat = new List<string>();
-
-        static void Main(string[] args)
+        private static HttpClient httpClient = new HttpClient();
+        
+        static async Task Main(string[] args)
         {
-            if (args.Length < 2)
-            {
-                EAW_File_Path = @"D:\EastAsianWidth.txt";
-                EAW_DBFile_Path = @"D:\EAWDB";
-            }
-            else
+
+            string EAW_File_Path = null;
+
+            string EAW_DBFile_Path = "eawdb.txt";
+
+            if (args.Length == 2)
             {
                 if (System.IO.File.Exists(args[0]))
                     EAW_File_Path = args[0];
@@ -33,7 +34,17 @@ namespace CreateDB
             }
 
             Console.WriteLine("Reading EAW File");
-            EAW_File_Meat = System.IO.File.ReadAllLines(EAW_File_Path).ToList();
+            List<string> EAW_File_Meat = new List<string>();
+            if (EAW_File_Path != null)
+            {
+                EAW_File_Meat = System.IO.File.ReadAllLines(EAW_File_Path).ToList();
+            }
+            else
+            {
+                string str = await httpClient.GetStringAsync(UCD_EAW_URL);
+                str = str.Replace("\r\n", "\n");
+                EAW_File_Meat = str.Split('\n').ToList();
+            }
 
             List<int> todel = new List<int>();
 
@@ -60,22 +71,20 @@ namespace CreateDB
             Console.WriteLine("Saving");
             string TextMeat = CreateDB.CreateTextFile();
 
-            System.IO.File.WriteAllText(EAW_DBFile_Path,TextMeat,System.Text.Encoding.UTF8);
+            System.IO.File.WriteAllText(EAW_DBFile_Path, TextMeat, System.Text.Encoding.UTF8);
 
             Console.WriteLine();
             Console.WriteLine("Success");
             Console.WriteLine($"DB File: \"{EAW_DBFile_Path}\"");
-
-            Console.ReadLine();
         }
 
         static string Cut_Unuse_Content(string str)
         {
             string tmp = str;
-            tmp = System.Text.RegularExpressions.Regex.Replace(tmp,@"#.*$",""); // Delete Comment
-            tmp = System.Text.RegularExpressions.Regex.Replace(tmp,@"\s+"," "); // Delete Space
-            tmp = System.Text.RegularExpressions.Regex.Replace(tmp,@"\s+$",""); // Delete Space in Front
-            tmp = System.Text.RegularExpressions.Regex.Replace(tmp,@"^\s+", ""); // Delete Space in Back
+            tmp = Regex.Replace(tmp,@"#.*$",""); // Delete Comment
+            tmp = Regex.Replace(tmp,@"\s+"," "); // Delete Space
+            tmp = Regex.Replace(tmp,@"\s+$",""); // Delete Space in Front
+            tmp = Regex.Replace(tmp,@"^\s+", ""); // Delete Space in Back
             return tmp;
         }
     }
