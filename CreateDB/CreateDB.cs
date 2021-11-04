@@ -40,7 +40,10 @@ namespace CreateDB
             string tmp = "";
 
             foreach (RangeInfo rif in RDBs)
-                tmp += ($"{rif.Start_index},{rif.End_index},{rif.Type};");
+                if (rif.Start_index == rif.End_index)
+                    tmp += ($"{rif.Start_index},{rif.Type};");
+                else
+                    tmp += ($"{rif.Start_index},{rif.End_index},{rif.Type};");
 
             tmp = tmp.Substring(0,tmp.Length-1);
 
