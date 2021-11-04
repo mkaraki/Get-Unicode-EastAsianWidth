@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Get_Unicode_EastAsianWidth</RootNamespace>
-    <RepositoryUrl>https://github.com/mkaraki/Get-Unicode-EastAsianWidth</RepositoryUrl>
     <PackageId>Get-Unicode-EastAsianWidth</PackageId>
-    <Version>0.1.0</Version>
+    <RepositoryUrl>https://github.com/mkaraki/Get-Unicode-EastAsianWidth</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>mkaraki</Authors>
     <Company>mkaraki</Company>
   </PropertyGroup>
