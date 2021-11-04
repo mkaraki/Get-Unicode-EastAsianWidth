@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Get Unicode EastAsianWidth\Get Unicode EastAsianWidth.csproj" />
+    <ProjectReference Include="..\Get-Unicode-EastAsianWidth\Get-Unicode-EastAsianWidth.csproj" />
   </ItemGroup>
 
 </Project>

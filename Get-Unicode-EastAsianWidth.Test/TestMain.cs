@@ -9,7 +9,7 @@ namespace Get_Unicode_EastAsianWidth.Test
         [TestMethod]
         public void Check_IsFullWidth_1()
         {
-            char test_tgt = '—Ç';
+            char test_tgt = 'ï¿½ï¿½';
             bool res = EAWCheck.IsFullWidth(test_tgt);
 
             Assert.AreEqual(true,res);
@@ -27,7 +27,7 @@ namespace Get_Unicode_EastAsianWidth.Test
         [TestMethod]
         public void Check_IsHalfWidth_1()
         {
-            char test_tgt = '—Ç';
+            char test_tgt = 'ï¿½ï¿½';
             bool res = EAWCheck.IsHalfWidth(test_tgt);
 
             Assert.AreEqual(false, res);
@@ -45,7 +45,7 @@ namespace Get_Unicode_EastAsianWidth.Test
         [TestMethod]
         public void Check_LenB_1()
         {
-            string test_tgt = "‚±‚ê‚ÍA\"Test\"—p‚ÌƒeƒLƒXƒg‚Å‚·B"; // (13 * 2) + 4 = 32 
+            string test_tgt = "ï¿½ï¿½ï¿½ï¿½ÍA\"Test\"ï¿½pï¿½Ìƒeï¿½Lï¿½Xï¿½gï¿½Å‚ï¿½ï¿½B"; // (13 * 2) + 4 = 32 
             int res = EAWCheck.LenB(test_tgt);
 
             Assert.AreEqual(32, res);

@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Get Unicode EastAsianWidth\Get Unicode EastAsianWidth.csproj" />
+    <ProjectReference Include="..\Get-Unicode-EastAsianWidth\Get-Unicode-EastAsianWidth.csproj" />
   </ItemGroup>
 
 </Project>
